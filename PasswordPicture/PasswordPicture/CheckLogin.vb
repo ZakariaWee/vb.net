@@ -150,32 +150,6 @@ End Class
 
 
 
-Public Class Loader
-    Inherits MarshalByRefObject
 
-    Shared Function ExecuteDLL(ByVal Domain_ As AppDomain, dllsource As String)
-        Dim instance As Object = Domain_.CreateInstanceAndUnwrap("LoginDLL, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null", "BasicLogin")
-        Dim a As Assembly = Assembly.LoadFile(dllsource)
-
-
-
-        Dim methodinfo As MethodInfo = instance.GetType().GetMethod("GetHash")
-
-
-        For Each xx In instance.GetType().GetMethods
-            MsgBox(xx.Name)
-        Next
-        methodinfo.Invoke(instance, Nothing)
-        AppDomain.Unload(Domain_)
-
-
-    End Function
-    Shared Function CallInternal(dll As String, typename As String, method As String, parameters As Object()) As Object
-        Dim a As Assembly = Assembly.LoadFile(dll)
-        Dim o As Object = a.CreateInstance(typename)
-        Dim t As Type = o.[GetType]()
-        Dim m As MethodInfo = t.GetMethod(method)
-        Return m.Invoke(o, parameters)
-    End Function
-End Class
+    
  
